@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import styles from '../styles/CircleButton';
+import styles from './styles/CircleButton';
 
 export default class CircleButton extends React.Component {
   render() {
