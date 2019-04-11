@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import PaymentCardMemoList from './src/pages/PaymentCardMemoList';
+import PaymentCardMemoDetail from './src/pages/PaymentCardMemoDetail';
 import styles from './src/common/styles/Page';
 
 export default class App extends React.Component {
@@ -8,7 +8,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
 
-        <PaymentCardMemoList />
+        <PaymentCardMemoDetail />
 
       </View>
     );
