@@ -11,7 +11,9 @@ export default class PaymentCardMemoDetail extends React.Component {
       <View style={styles.pagesCommon}>
         <Header>au</Header>
         <PaymentCardDetail />
-        <CircleButton>+</CircleButton>
+        <CircleButton>
+          {'\uf067'}
+        </CircleButton>
       </View>
     );
   }
