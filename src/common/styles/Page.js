@@ -10,6 +10,5 @@ export default StyleSheet.create({
   pagesCommon: {
     flex: 1,
     width: '100%',
-    paddingTop: 80,
   },
 });

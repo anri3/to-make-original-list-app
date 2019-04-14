@@ -13,7 +13,8 @@
     "react-date-picker": "^7.5.0",
     "react-datepicker": "^2.4.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "react-native-vector-icons": "^6.4.2"
+    "react-native-vector-icons": "^6.4.2",
+    "react-navigation": "^3.8.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

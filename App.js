@@ -1,16 +1,72 @@
 import React from 'react';
-import { View } from 'react-native';
+import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator,createAppContainer } from "react-navigation";
+import PaymentCardMemoList from './src/pages/PaymentCardMemoList';
+import PaymentCardMemoDetail from './src/pages/PaymentCardMemoDetail';
 import PaymentCardMemoEdit from './src/pages/PaymentCardMemoEdit';
-import styles from './src/common/styles/Page';
+
+
+
+const Stack = createStackNavigator(
+  {
+    PaymentCardMemoList: {
+      screen: PaymentCardMemoList,
+      navigationOptions: () => ({
+      title: `PaymentCard List`,
+      headerStyle: {
+        backgroundColor: '#ff8d14',
+      },
+      headerTitleStyle: {
+        color: '#fff',
+        fontSize: 18,
+      },
+      headerBackTitle: null
+    }),
+     },
+    PaymentCardMemoDetail: {
+      screen: PaymentCardMemoDetail,
+      navigationOptions: () => ({
+      title: `三菱UFJ`,
+      headerStyle: {
+        backgroundColor: '#ff8d14',
+      },
+      headerTitleStyle: {
+        color: '#fff',
+        fontSize: 18,
+      },
+      headerBackTitle: null
+    }),
+    },
+    PaymentCardMemoEdit: {
+      screen: PaymentCardMemoEdit,
+      navigationOptions: () => ({
+      title: `品目`,
+      headerStyle: {
+        backgroundColor: '#ff8d14',
+      },
+      headerTitleStyle: {
+        color: '#fff',
+        fontSize: 18,
+      },
+      headerBackTitle: null
+    }),
+    },
+  },
+  {
+    initialRouteName: 'PaymentCardMemoList'
+  }
+);
+
+const AppContainer = createAppContainer(Stack);
+
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-
-        <PaymentCardMemoEdit />
-
-      </View>
+     <AppContainer
+     ref={nav => {
+        this.navigator = nav;
+     }}
+     />
     );
   }
 }

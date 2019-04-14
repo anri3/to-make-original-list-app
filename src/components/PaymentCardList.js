@@ -1,14 +1,16 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 
 export default class PaymentCardList extends React.Component {
   render() {
     return (
       <View style={styles.memoList}>
 
+      <TouchableHighlight onPress={() => {this.props.navigation.navigate('PaymentCardMemoDetail')}} underlayColor="transparent">
         <View style={styles.cardMemoListItem}>
           <Text style={styles.memoTitle}>三菱UFJ</Text>
         </View>
+      </TouchableHighlight>
 
         <View style={styles.cardMemoListItem}>
           <Text style={styles.memoTitle}>yahoo</Text>
