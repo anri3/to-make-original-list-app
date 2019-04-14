@@ -7,6 +7,8 @@ export default class PaymentCardEdit extends React.Component {
     this.state = {
       job: '',
       chosenDate: new Date(),
+      content: '',
+      price: '',
     };
 
     this.setDate = this.setDate.bind(this);
@@ -15,6 +17,7 @@ export default class PaymentCardEdit extends React.Component {
   setDate(newDate) {
     this.setState({chosenDate: newDate});
   }
+
 
   render() {
     return (
@@ -34,9 +37,22 @@ export default class PaymentCardEdit extends React.Component {
 
         <View style={styles.otherContainer}>
         <Text style={styles.otherTitle}>名称</Text>
-        <TextInput value="映画" style={styles.input} />
+        <TextInput
+          value={this.props.content}
+          style={styles.input}
+          onChangeText={(text) => {this.setState({ content: text })}}
+          autoCapitalize="none"
+          keyboardType="default"
+        />
         <Text style={styles.otherTitle}>金額</Text>
-        <TextInput value="¥1800" style={styles.input} />
+        <TextInput
+          value={this.props.price}
+          style={styles.input}
+          onChangeText={(text) => {this.setState({ price: text })}}
+          autoCapitalize="none"
+          placeholder="¥****"
+          keyboardType="numbers-and-punctuation"
+        />
         </View>
 
         <View style={styles.pickerContainer}>
@@ -119,7 +135,7 @@ const styles = StyleSheet.create ({
     borderWidth: 1,
     borderColor: '#DDD',
     padding: 8,
-    fontSize: 24,
+    fontSize: 20,
     color: '#ff8d14',
   },
 });

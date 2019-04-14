@@ -12,6 +12,7 @@ const Stack = createStackNavigator(
       screen: PaymentCardMemoList,
       navigationOptions: () => ({
       title: `PaymentCard List`,
+      headerTintColor: '#fff',
       headerStyle: {
         backgroundColor: '#ff8d14',
       },
@@ -26,6 +27,7 @@ const Stack = createStackNavigator(
       screen: PaymentCardMemoDetail,
       navigationOptions: () => ({
       title: `三菱UFJ`,
+      headerTintColor: '#fff',
       headerStyle: {
         backgroundColor: '#ff8d14',
       },
@@ -40,6 +42,7 @@ const Stack = createStackNavigator(
       screen: PaymentCardMemoEdit,
       navigationOptions: () => ({
       title: `品目`,
+      headerTintColor: '#fff',
       headerStyle: {
         backgroundColor: '#ff8d14',
       },

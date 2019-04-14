@@ -9,7 +9,7 @@ export default class PaymentCardMemoEdit extends React.Component {
     return (
       <View style={styles.pagesCommon}>
         <PaymentCardEdit />
-        <CircleButton>
+        <CircleButton onPress={() => {this.props.navigation.goBack()}}>
           {'\uf00c'}
         </CircleButton>
       </View>

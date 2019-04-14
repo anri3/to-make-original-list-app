@@ -8,7 +8,7 @@ export default class PaymentCardMemoDetail extends React.Component {
   render() {
     return (
       <View style={styles.pagesCommon}>
-        <PaymentCardDetail />
+        <PaymentCardDetail navigation={this.props.navigation} />
         <CircleButton onPress={() => {this.props.navigation.navigate('PaymentCardMemoEdit')}}>
           {'\uf067'}
         </CircleButton>

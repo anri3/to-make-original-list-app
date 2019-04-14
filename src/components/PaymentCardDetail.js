@@ -1,21 +1,23 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 
 export default class PaymentCardDetail extends React.Component {
   render() {
     return (
       <View style={styles.memoList}>
 
+      <TouchableHighlight onPress={() => {this.props.navigation.navigate('PaymentCardMemoEdit')}} underlayColor="transparent">
         <View style={styles.detailListItem}>
           <Text style={styles.date}>2019/04/02</Text>
           <Text style={styles.contentTitle}>映画</Text>
           <Text style={styles.price}>¥1800</Text>
           <Text style={styles.month}>5月</Text>
         </View>
+      </TouchableHighlight>
 
         <View style={styles.detailListItem}>
           <Text style={styles.date}>2019/04/04</Text>
-          <Text style={styles.contentTitle}>fortune</Text>
+          <Text style={styles.contentTitle}>CD</Text>
           <Text style={styles.price}>¥1624</Text>
           <Text style={styles.month}>5月</Text>
         </View>
