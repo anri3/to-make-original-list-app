@@ -1,9 +1,20 @@
 import React from 'react';
+import firebase from 'firebase';
 import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator,createAppContainer } from "react-navigation";
 import PaymentCardMemoList from './src/pages/PaymentCardMemoList';
 import PaymentCardMemoDetail from './src/pages/PaymentCardMemoDetail';
 import PaymentCardMemoEdit from './src/pages/PaymentCardMemoEdit';
+import ENV from './env.json';
 
+const config = {
+    apiKey: ENV.FIREBASE_API_KEY,
+    authDomain: ENV.FIREBASE_AUTH_DOMAIN,
+    databaseURL: ENV.FIREBASE_DB_URL,
+    projectId: ENV.FIREBASE_PRJ_ID,
+    storageBucket: ENV.FIREBASE_STORAGE,
+    messagingSenderId: ENV.FIREBASE_MSG_ID,
+  };
+  firebase.initializeApp(config);
 
 
 const Stack = createStackNavigator(
