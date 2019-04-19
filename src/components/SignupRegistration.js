@@ -1,14 +1,22 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
+import firebase from 'firebase';
 
 export default class SignupRegistration extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: '',
-      password: '',
-      confirmPassword: '',
-    };
+  state = {
+    email: '',
+    password: '',
+  }
+
+
+  handleSubmit() {
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then((user) => {
+      this.props.navigation.navigate('PaymentCardMemoList')
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   render() {
@@ -17,7 +25,7 @@ export default class SignupRegistration extends React.Component {
 
         <View style={styles.textContainer}>
           <TextInput
-            value={this.props.email}
+            value={this.state.email}
             style={styles.input}
             onChangeText={(text) => {this.setState({ email: text })}}
             autoCapitalize="none"
@@ -26,7 +34,7 @@ export default class SignupRegistration extends React.Component {
             keyboardType="default"
           />
           <TextInput
-            value={this.props.password}
+            value={this.state.password}
             style={styles.input}
             onChangeText={(text) => {this.setState({ password: text })}}
             autoCapitalize="none"
@@ -34,18 +42,9 @@ export default class SignupRegistration extends React.Component {
             keyboardType="default"
             secureTextEntry
           />
-          <TextInput
-            value={this.props.confirmPassword}
-            style={styles.input}
-            onChangeText={(text) => {this.setState({ confirmPassword: text })}}
-            autoCapitalize="none"
-            placeholder="Password(確認)"
-            keyboardType="default"
-            secureTextEntry
-          />
         </View>
 
-        <TouchableHighlight onPress={() => {this.props.navigation.navigate('PaymentCardMemoList')}} underlayColor="transparent">
+        <TouchableHighlight onPress={this.handleSubmit.bind(this)} underlayColor="transparent">
           <View style={styles.loginItem}>
             <Text style={styles.title}>新規登録する</Text>
           </View>
