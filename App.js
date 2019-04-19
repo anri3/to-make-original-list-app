@@ -1,6 +1,8 @@
 import React from 'react';
 import firebase from 'firebase';
 import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator,createAppContainer } from "react-navigation";
+import Login from './src/pages/Login'
+import Signup from './src/pages/Signup'
 import PaymentCardMemoList from './src/pages/PaymentCardMemoList';
 import PaymentCardMemoDetail from './src/pages/PaymentCardMemoDetail';
 import PaymentCardMemoEdit from './src/pages/PaymentCardMemoEdit';
@@ -19,6 +21,36 @@ const config = {
 
 const Stack = createStackNavigator(
   {
+    Login: {
+      screen: Login,
+      navigationOptions: () => ({
+      title: `Login`,
+      headerTintColor: '#fff',
+      headerStyle: {
+        backgroundColor: '#ff8d14',
+      },
+      headerTitleStyle: {
+        color: '#fff',
+        fontSize: 18,
+      },
+      headerBackTitle: null
+    }),
+     },
+     Signup: {
+       screen: Signup,
+       navigationOptions: () => ({
+       title: `新規登録`,
+       headerTintColor: '#fff',
+       headerStyle: {
+         backgroundColor: '#ff8d14',
+       },
+       headerTitleStyle: {
+         color: '#fff',
+         fontSize: 18,
+       },
+       headerBackTitle: null
+     }),
+      },
     PaymentCardMemoList: {
       screen: PaymentCardMemoList,
       navigationOptions: () => ({
@@ -66,7 +98,7 @@ const Stack = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'PaymentCardMemoList'
+    initialRouteName: 'Login'
   }
 );
 
