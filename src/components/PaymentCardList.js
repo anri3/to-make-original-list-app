@@ -1,12 +1,29 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import CircleButton from '../elements/CircleButton';
+import firebase from 'firebase';
+
+//this.props.navigation.navigate('PaymentCardMemoDetail')
 
 export default class PaymentCardList extends React.Component {
+
+//メモのアイテムを押すと、PaymentCardMemoDetailへ
+  handlePress() {
+   this.props.navigation.navigate('PaymentCardMemoDetail')
+  }
+
+  handleAdd() {
+    this.props.navigation.navigate('PaymentCardMemoAdd')
+  }
+
   render() {
+    console.log(this.props.cardMemo);
     return (
+    <View>
+
       <View style={styles.memoList}>
 
-      <TouchableHighlight onPress={() => {this.props.navigation.navigate('PaymentCardMemoDetail')}} underlayColor="transparent">
+      <TouchableHighlight onPress={this.handlePress.bind(this)} underlayColor="transparent">
         <View style={styles.cardMemoListItem}>
           <Text style={styles.memoTitle}>三菱UFJ</Text>
         </View>
@@ -25,6 +42,14 @@ export default class PaymentCardList extends React.Component {
         </View>
 
       </View>
+
+        <View style={styles.saveButton}>
+        <CircleButton onPress={this.handleAdd.bind(this)}>
+          {'\uf067'}
+        </CircleButton>
+        </View>
+
+    </View>
     );
   }
 }
@@ -54,5 +79,8 @@ const styles = StyleSheet.create({
   memoTitle: {
     fontSize: 16,
     color: '#ff8d14',
+  },
+  saveButton: {
+    marginTop: 716,
   },
 });

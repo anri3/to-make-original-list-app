@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { DatePickerIOS, StyleSheet, View, Text, TextInput, Picker } from 'react-native';
+import CircleButton from '../elements/CircleButton';
 
 export default class PaymentCardEdit extends React.Component {
   constructor(props) {
@@ -16,6 +17,10 @@ export default class PaymentCardEdit extends React.Component {
 
   setDate(newDate) {
     this.setState({chosenDate: newDate});
+  }
+
+  handleBack() {
+    this.props.navigation.goBack()
   }
 
 
@@ -77,6 +82,11 @@ export default class PaymentCardEdit extends React.Component {
         </Picker>
         </View>
 
+        <View style={styles.saveButton}>
+        <CircleButton onPress={this.handleBack.bind(this)}>
+          {'\uf00c'}
+        </CircleButton>
+        </View>
 
       </View>
     );
@@ -137,5 +147,8 @@ const styles = StyleSheet.create ({
     padding: 8,
     fontSize: 20,
     color: '#ff8d14',
+  },
+  saveButton: {
+    marginTop: 336,
   },
 });

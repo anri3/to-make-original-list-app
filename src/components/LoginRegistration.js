@@ -3,15 +3,18 @@ import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-nat
 import firebase from 'firebase';
 
 export default class LoginRegistration extends React.Component {
+  //email: '', password: '',
   state = {
-      email: '',
-      password: '',
+      email: 'us@exm.jp',
+      password: '000000',
    }
 
+//ログインボタンを押して成功したら、PaymentCardMemoListに飛ぶ
    handleSubmit() {
      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
      .then((user) => {
-       this.props.navigation.navigate('PaymentCardMemoList')
+       console.log("success");
+       this.props.navigation.navigate('PaymentCardMemoList');
      })
      .catch((error) => {
        console.log(error);

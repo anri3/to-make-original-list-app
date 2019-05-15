@@ -4,9 +4,12 @@ import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator,c
 import Login from './src/pages/Login'
 import Signup from './src/pages/Signup'
 import PaymentCardMemoList from './src/pages/PaymentCardMemoList';
+import PaymentCardMemoAdd from './src/pages/PaymentCardMemoAdd';
 import PaymentCardMemoDetail from './src/pages/PaymentCardMemoDetail';
 import PaymentCardMemoEdit from './src/pages/PaymentCardMemoEdit';
 import ENV from './env.json';
+
+require("firebase/firestore");
 
 const config = {
     apiKey: ENV.FIREBASE_API_KEY,
@@ -66,6 +69,21 @@ const Stack = createStackNavigator(
       headerBackTitle: null
     }),
      },
+     PaymentCardMemoAdd: {
+       screen: PaymentCardMemoAdd,
+       navigationOptions: () => ({
+       title: `PaymentCard Add`,
+       headerTintColor: '#fff',
+       headerStyle: {
+         backgroundColor: '#ff8d14',
+       },
+       headerTitleStyle: {
+         color: '#fff',
+         fontSize: 18,
+       },
+       headerBackTitle: null
+     }),
+      },
     PaymentCardMemoDetail: {
       screen: PaymentCardMemoDetail,
       navigationOptions: () => ({
