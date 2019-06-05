@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { DatePickerIOS, StyleSheet, View, Text, TextInput, Picker } from 'react-native';
 import CircleButton from '../elements/CircleButton';
+import firebase from 'firebase';
 
 export default class PaymentCardEdit extends React.Component {
   constructor(props) {
@@ -19,8 +20,23 @@ export default class PaymentCardEdit extends React.Component {
     this.setState({chosenDate: newDate});
   }
 
-  handleBack() {
+//this.props.navigation.goBack()
+  handleSubmit() {
+    const { currentUser } = firebase.auth();
+    const db = firebase.firestore();
+    const { params } = this.props.navigation.state;
+    // db.settings({　timestampsInSnapshots: true　});
+    db.collection(`users/${currentUser.uid}/cardMemos/${params.currentMemo.key}/paymentMemos`).add({
+      body: this.state.content,
+      createdOn: new Date(),
+    })
+    .then((docRef) => {
+    console.log("Document written with ID: ", docRef.id);
     this.props.navigation.goBack()
+    })
+    .catch((error) => {
+    console.error("Error adding document: ", error);
+    });
   }
 
 
@@ -83,7 +99,7 @@ export default class PaymentCardEdit extends React.Component {
         </View>
 
         <View style={styles.saveButton}>
-        <CircleButton onPress={this.handleBack.bind(this)}>
+        <CircleButton onPress={this.handleSubmit.bind(this)}>
           {'\uf00c'}
         </CircleButton>
         </View>

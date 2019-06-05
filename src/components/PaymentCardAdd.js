@@ -9,7 +9,6 @@ export default class PaymentCardAdd extends React.Component {
    }
 
    handlePress() {
-     // this.props.navigation.navigate('PaymentCardMemoList')
      const { currentUser } = firebase.auth();
      const db = firebase.firestore();
      // db.settings({　timestampsInSnapshots: true　});
@@ -19,6 +18,7 @@ export default class PaymentCardAdd extends React.Component {
      })
      .then((docRef) => {
      console.log("Document written with ID: ", docRef.id);
+     this.props.navigation.state.params.refresh();
      this.props.navigation.navigate('PaymentCardMemoList')
      })
      .catch((error) => {

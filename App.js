@@ -87,7 +87,7 @@ const Stack = createStackNavigator(
     PaymentCardMemoDetail: {
       screen: PaymentCardMemoDetail,
       navigationOptions: () => ({
-      title: `三菱UFJ`,
+      title: `支払い内容`,
       headerTintColor: '#fff',
       headerStyle: {
         backgroundColor: '#ff8d14',

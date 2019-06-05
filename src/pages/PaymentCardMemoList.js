@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import PaymentCardList from '../components/PaymentCardList';
+import CircleButton from '../elements/CircleButton';
 import styles from '../common/styles/Page'
 import firebase from 'firebase';
 
@@ -17,8 +18,11 @@ export default class PaymentCardMemoList extends React.Component {
     .then((snapshot) => {
       const cardMemo = [];
       snapshot.forEach((doc) => {
-        cardMemo.push(doc.data());
+        //cardMemo.push(doc.data()); keyも渡している状態
+        console.log(doc.id);
+        cardMemo.push({ ...doc.data(), key: doc.id });
       });
+      // { cardMemo: cardMemo }
       this.setState({ cardMemo });
     })
     .catch((error) => {
@@ -30,6 +34,9 @@ export default class PaymentCardMemoList extends React.Component {
     return (
       <View style={styles.pagesCommon}>
         <PaymentCardList cardMemo={this.state.cardMemo} navigation={this.props.navigation}/>
+        <CircleButton onPress={() => {this.props.navigation.navigate('PaymentCardMemoAdd', { refresh: this.componentWillMount.bind(this)})}}>
+          {'\uf067'}
+        </CircleButton>
       </View>
     );
   }

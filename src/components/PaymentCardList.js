@@ -1,70 +1,63 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
-import CircleButton from '../elements/CircleButton';
+import { StyleSheet, View, Text, TouchableHighlight, FlatList } from 'react-native';
 import firebase from 'firebase';
 
-//this.props.navigation.navigate('PaymentCardMemoDetail')
-
 export default class PaymentCardList extends React.Component {
+
+  renderCardMemo(memo) {
+    return (
+
+      <View style={styles.memoList}>
+       <TouchableHighlight onPress={() => {this.props.navigation.navigate('PaymentCardMemoDetail', { currentMemo: memo })}} underlayColor="transparent">
+         <View style={styles.cardMemoListItem}>
+           <Text style={styles.memoTitle}>{memo.body.substring(0, 14)}</Text>
+         </View>
+       </TouchableHighlight>
+      </View>
+
+    );
+  }
 
 //メモのアイテムを押すと、PaymentCardMemoDetailへ
   handlePress() {
    this.props.navigation.navigate('PaymentCardMemoDetail')
   }
 
-  handleAdd() {
-    this.props.navigation.navigate('PaymentCardMemoAdd')
-  }
 
   render() {
-    console.log(this.props.cardMemo);
+    const list = [];
+    this.props.cardMemo.forEach((memo) => {
+      list.push(this.renderCardMemo(memo));
+    });
     return (
     <View>
 
-      <View style={styles.memoList}>
-
-      <TouchableHighlight onPress={this.handlePress.bind(this)} underlayColor="transparent">
-        <View style={styles.cardMemoListItem}>
-          <Text style={styles.memoTitle}>三菱UFJ</Text>
-        </View>
-      </TouchableHighlight>
-
-        <View style={styles.cardMemoListItem}>
-          <Text style={styles.memoTitle}>yahoo</Text>
-        </View>
-
-        <View style={styles.cardMemoListItem}>
-          <Text style={styles.memoTitle}>au</Text>
-        </View>
-
-        <View style={styles.cardMemoListItem}>
-          <Text style={styles.memoTitle}>プリペイド(Visa)</Text>
-        </View>
-
+      <View style={styles.container}>
+        {list}
       </View>
 
-        <View style={styles.saveButton}>
-        <CircleButton onPress={this.handleAdd.bind(this)}>
-          {'\uf067'}
-        </CircleButton>
-        </View>
 
     </View>
+
     );
   }
 }
 
 const styles = StyleSheet.create({
-  memoList: {
+  container: {
     flex: 1,
-    marginTop: 8,
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  memoList: {
+    marginTop: 16,
     marginLeft: 16,
+    height: 96,
+    width: 96,
   },
   cardMemoListItem: {
     backgroundColor: '#fff',
-    margin: 10,
+    margin: 8,
     padding: 16,
     height: 96,
     width: 96,
@@ -79,8 +72,5 @@ const styles = StyleSheet.create({
   memoTitle: {
     fontSize: 16,
     color: '#ff8d14',
-  },
-  saveButton: {
-    marginTop: 716,
   },
 });
