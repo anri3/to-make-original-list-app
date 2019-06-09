@@ -27,8 +27,10 @@ export default class PaymentCardEdit extends React.Component {
     const { params } = this.props.navigation.state;
     // db.settings({　timestampsInSnapshots: true　});
     db.collection(`users/${currentUser.uid}/cardMemos/${params.currentMemo.key}/paymentMemos`).add({
+      createdOn: this.state.chosenDate,
       body: this.state.content,
-      createdOn: new Date(),
+      number: this.state.price,
+      option: this.state.job,
     })
     .then((docRef) => {
     console.log("Document written with ID: ", docRef.id);
@@ -47,6 +49,7 @@ export default class PaymentCardEdit extends React.Component {
         <View style={styles.pickerContainer}>
         <Text style={styles.dateTitle}>購入日</Text>
         <DatePickerIOS
+          dateFormat="yyyy/MM/dd"
           style={styles.date}
           itemStyle={styles.dateItem}
           date={this.state.chosenDate}
@@ -57,12 +60,14 @@ export default class PaymentCardEdit extends React.Component {
         </View>
 
         <View style={styles.otherContainer}>
-        <Text style={styles.otherTitle}>名称</Text>
+        <Text style={styles.otherTitle}>名称(分割・リボ内容)</Text>
         <TextInput
           value={this.props.content}
           style={styles.input}
           onChangeText={(text) => {this.setState({ content: text })}}
           autoCapitalize="none"
+          maxLength={9}
+          placeholder="9文字以内"
           keyboardType="default"
         />
         <Text style={styles.otherTitle}>金額</Text>
@@ -71,7 +76,7 @@ export default class PaymentCardEdit extends React.Component {
           style={styles.input}
           onChangeText={(text) => {this.setState({ price: text })}}
           autoCapitalize="none"
-          placeholder="¥****"
+          maxLength={6}
           keyboardType="numbers-and-punctuation"
         />
         </View>
@@ -83,18 +88,9 @@ export default class PaymentCardEdit extends React.Component {
           selectedValue={this.state.job}
           onValueChange={(itemValue) => this.setState({job: itemValue})}
         >
-          <Picker.Item label="1月" value={1} />
-          <Picker.Item label="2月" value={2} />
-          <Picker.Item label="3月" value={3} />
-          <Picker.Item label="4月" value={4} />
-          <Picker.Item label="5月" value={5} />
-          <Picker.Item label="6月" value={6} />
-          <Picker.Item label="7月" value={7} />
-          <Picker.Item label="8月" value={8} />
-          <Picker.Item label="9月" value={9} />
-          <Picker.Item label="10月" value={10} />
-          <Picker.Item label="11月" value={11} />
-          <Picker.Item label="12月" value={12} />
+          <Picker.Item label="次回" value="次回" />
+          <Picker.Item label="次々回" value="次々回" />
+          <Picker.Item label="未記入" value="" />
         </Picker>
         </View>
 

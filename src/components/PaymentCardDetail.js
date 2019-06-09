@@ -1,18 +1,21 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
+
+const dateString = (date) => {
+  const str = date.toDate().toISOString();
+  return str.split('T')[0];
+};
 
 export default class PaymentCardDetail extends React.Component {
 
   renderMemo({ item }) {
     return (
-      <TouchableHighlight onPress={() => {this.props.navigation.navigate('PaymentCardMemoEdit')}} underlayColor="transparent">
         <View style={styles.detailListItem}>
-          <Text style={styles.date}>2019/04/02</Text>
+          <Text style={styles.date}>{dateString(item.createdOn)}</Text>
           <Text style={styles.contentTitle}>{item.body}</Text>
-          <Text style={styles.price}>¥1800</Text>
-          <Text style={styles.month}>5月</Text>
+          <Text style={styles.price}>{`¥${item.number}`}</Text>
+          <Text style={styles.month}>{item.option}</Text>
         </View>
-      </TouchableHighlight>
     );
   }
 
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#47bd47',
     position: 'absolute',
-    right: 72,
+    right: 64,
   },
   month: {
     fontSize: 14,
