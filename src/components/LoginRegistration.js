@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
 import firebase from 'firebase';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 export default class LoginRegistration extends React.Component {
   //email: '', password: '',
@@ -13,8 +14,11 @@ export default class LoginRegistration extends React.Component {
    handleSubmit() {
      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
      .then((user) => {
-       console.log("success");
-       this.props.navigation.navigate('PaymentCardMemoList');
+       const resetAction = StackActions.reset({
+         index: 0,
+         actions: [NavigationActions.navigate({ routeName: 'PaymentCardMemoList' })],
+       });
+       this.props.navigation.dispatch(resetAction);
      })
      .catch((error) => {
        console.log(error);

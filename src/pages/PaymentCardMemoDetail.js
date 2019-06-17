@@ -33,7 +33,7 @@ export default class PaymentCardMemoDetail extends React.Component {
 
   handlePress() {
     const { params } = this.props.navigation.state;
-    this.props.navigation.navigate('PaymentCardMemoEdit', { currentMemo: params.currentMemo })
+    this.props.navigation.navigate('PaymentCardMemoEdit', { currentMemo: params.currentMemo, refresh: this.componentWillMount.bind(this) })
   }
 
   render() {

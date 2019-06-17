@@ -40,6 +40,7 @@ export default class PaymentCardAdd extends React.Component {
             onChangeText={(text) => {this.setState({ cardName: text })}}
             autoCapitalize="none"
             autoCorrect={false}
+            maxLength={14}
             placeholder="カード名"
             keyboardType="default"
           />

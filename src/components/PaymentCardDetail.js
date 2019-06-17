@@ -1,28 +1,69 @@
 import React from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
-
-const dateString = (date) => {
-  const str = date.toDate().toISOString();
-  return str.split('T')[0];
-};
+import { StyleSheet, View, Text, FlatList, Alert } from 'react-native';
+import Swipeout from 'react-native-swipeout';
+import firebase from 'firebase';
 
 export default class PaymentCardDetail extends React.Component {
 
+  deleteDocument() {
+    const { currentUser } = firebase.auth();
+    const db = firebase.firestore();
+    const { params } = this.props.navigation.state;
+    const projectRef= firebase.database().ref(`users/${currentUser.uid}/cardMemos/${params.currentMemo.key}/paymentMemos`);
+    projectRef.remove();
+  }
+
   renderMemo({ item }) {
+    const swipeSetting = [{
+      text: '削除',
+      backgroundColor: '#83BAE9',
+      underlayColor: '#FCFCFC',
+      onPress: () => {
+              Alert.alert(
+                "削除しますか？",
+                "",
+                [
+                  {
+                    text: "いいえ",
+                    style: "cancel"
+                  },
+                  {
+                    text: "はい",
+                    onPress: () => {
+                      //this.deleteDocument(item.key)
+                      this.deleteDocument()
+                    }
+                  }
+                ],
+                { cancelable: false }
+              );
+            },
+    }];
+
+    const dateString = (date) => {
+      const str = date.toDate().toISOString();
+      return str.split('T')[0];
+    };
+
     return (
+      <Swipeout
+        right={swipeSetting}
+        autoClose={true}
+        backgroundColor='transparent' >
         <View style={styles.detailListItem}>
           <Text style={styles.date}>{dateString(item.createdOn)}</Text>
           <Text style={styles.contentTitle}>{item.body}</Text>
           <Text style={styles.price}>{`¥${item.number}`}</Text>
           <Text style={styles.month}>{item.option}</Text>
         </View>
+      </Swipeout>
     );
   }
 
   render() {
     return (
       <View style={styles.memoList}>
-      <FlatList data={this.props.cardDetailMemo} renderItem={this.renderMemo.bind(this)} />
+      <FlatList data={this.props.cardDetailMemo} renderItem={this.renderMemo.bind(this)}/>
       </View>
     );
   }

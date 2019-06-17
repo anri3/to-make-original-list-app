@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { DatePickerIOS, StyleSheet, View, Text, TextInput, Picker } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Picker } from 'react-native';
+import DatePicker from 'react-native-datepicker'
 import CircleButton from '../elements/CircleButton';
 import firebase from 'firebase';
 
@@ -20,24 +21,23 @@ export default class PaymentCardEdit extends React.Component {
     this.setState({chosenDate: newDate});
   }
 
-//this.props.navigation.goBack()
   handleSubmit() {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
     const { params } = this.props.navigation.state;
-    // db.settings({　timestampsInSnapshots: true　});
+    db.settings({　timestampsInSnapshots: true　});
     db.collection(`users/${currentUser.uid}/cardMemos/${params.currentMemo.key}/paymentMemos`).add({
       createdOn: this.state.chosenDate,
       body: this.state.content,
       number: this.state.price,
       option: this.state.job,
     })
-    .then((docRef) => {
-    console.log("Document written with ID: ", docRef.id);
+    .then(() => {
+    this.props.navigation.state.params.refresh()
     this.props.navigation.goBack()
     })
     .catch((error) => {
-    console.error("Error adding document: ", error);
+
     });
   }
 
@@ -48,12 +48,15 @@ export default class PaymentCardEdit extends React.Component {
 
         <View style={styles.pickerContainer}>
         <Text style={styles.dateTitle}>購入日</Text>
-        <DatePickerIOS
+        <DatePicker
           dateFormat="yyyy/MM/dd"
           style={styles.date}
           itemStyle={styles.dateItem}
           date={this.state.chosenDate}
+          placeholder="select date"
           mode="date"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
           local={"ja"}
           onDateChange={this.setDate}
         />
@@ -125,7 +128,6 @@ const styles = StyleSheet.create ({
     paddingRight: 24,
     paddingLeft: 24,
     paddingTop: 24,
-    marginTop: 24,
   },
   picker: {
     width: 72,
@@ -144,8 +146,10 @@ const styles = StyleSheet.create ({
     color: '#a2a2a2',
   },
   date: {
-    height: 150,
-    width: 250,
+    height: 32,
+    width: 200,
+    marginTop: 24,
+    marginLeft: 24,
   },
   dateItem: {
     color: '#ff8d14',
