@@ -9,8 +9,16 @@ export default class PaymentCardDetail extends React.Component {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
     const { params } = this.props.navigation.state;
-    const projectRef= firebase.database().ref(`users/${currentUser.uid}/cardMemos/${params.currentMemo.key}/paymentMemos`);
-    projectRef.remove();
+    db.collection(`users/${currentUser.uid}/cardMemos/${params.currentMemo.key}/paymentMemos`)
+    .delete()
+    /*const projectRef= firebase.database().ref(`users/${currentUser.uid}/cardMemos/${params.currentMemo.key}/paymentMemos`);
+    projectRef.remove();*/
+    .then(() => {
+      console.log("Remove succeeded.")
+    })
+    .catch((error) => {
+      console.log('error')
+    });
   }
 
   renderMemo({ item }) {
@@ -31,7 +39,7 @@ export default class PaymentCardDetail extends React.Component {
                     text: "はい",
                     onPress: () => {
                       //this.deleteDocument(item.key)
-                      this.deleteDocument()
+                      this.deleteDocument(item.key)
                     }
                   }
                 ],

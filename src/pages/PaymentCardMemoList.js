@@ -17,7 +17,7 @@ export default class PaymentCardMemoList extends React.Component {
     .get()
     .then((snapshot) => {
       const cardMemo = [];
-      snapshot.forEach((doc) => {
+      snapshot.forEach((doc, key) => {
         //cardMemo.push(doc.data()); keyも渡している状態
         cardMemo.push({ ...doc.data(), key: doc.id });
       });

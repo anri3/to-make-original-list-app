@@ -4,10 +4,10 @@ import firebase from 'firebase';
 
 export default class PaymentCardList extends React.Component {
 
-  renderCardMemo(memo) {
+  renderCardMemo(memo, i) {
     return (
 
-      <View style={styles.memoList}>
+      <View key={i} style={styles.memoList}>
        <TouchableHighlight onPress={() => {this.props.navigation.navigate('PaymentCardMemoDetail', { currentMemo: memo })}} underlayColor="transparent">
          <View style={styles.cardMemoListItem}>
            <Text style={styles.memoTitle}>{memo.body.substring(0, 14)}</Text>
@@ -26,9 +26,11 @@ export default class PaymentCardList extends React.Component {
 
   render() {
     const list = [];
-    this.props.cardMemo.forEach((memo) => {
-      list.push(this.renderCardMemo(memo));
+
+    this.props.cardMemo.forEach((memo, i) => {
+      list.push(this.renderCardMemo(memo, i));
     });
+
     return (
     <View>
 
